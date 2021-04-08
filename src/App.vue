@@ -24,7 +24,6 @@ export default {
     "character-detail": CharacterDetail
   },
   mounted(){
-    // this.getData2()
     this.getUrls()
     this.getData()
     // Promise.all(this.urls.map(url => fetch(url)))
@@ -32,14 +31,12 @@ export default {
     // .then(data =>  Promise.all(data.flatMap(chars => chars.results))
     // .then((values) => {this.new_characters.push(...values)}))
 
-
-   
-
     eventBus.$on('character-selected', (character) => {
       this.selectedCharacter = character
     })
   },
   methods: {
+
       getData: async function(){
         const responses = await Promise.all(this.urls.map(url => fetch(url)))
         const data = await Promise.all(responses.map(res => res.json()))
@@ -47,21 +44,13 @@ export default {
         this.characters.push(...values)
       },
 
-      // getData: async function() {
-      // const response = await fetch('https://rickandmortyapi.com/api/character/')
-      // const data = await response.json()
-      // this.characters = data.results
-      // return data.info.pages
       getUrls: function() {
-        // const pages = this.getData()
-        // console.log(pages)
         for (let i=1; i<=34; i++) {
           let url = 'https://rickandmortyapi.com/api/character/?page=' + i
           this.urls.push(url)
         }
       }
-  
-  }
+    }
 }
 </script>
 
